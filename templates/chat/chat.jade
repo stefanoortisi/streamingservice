@@ -1,0 +1,69 @@
+.profile_content.chat
+  .chat_main
+    - str = ""
+    if room && room.info.about
+      - str = room.info.about
+
+    - genres = []
+    - genres_class = "no_tags"
+    if room && room.info.genres
+      - genres = room.info.genres
+      - genres_class = ""
+
+    .chat_header
+      .inner
+        p#description_room(data-view="[chat/description]", data-freestyle="true")
+          span.text #{str}
+        p.read_more 
+          span.more Read More
+          span.less Show Less
+
+
+        
+
+        .tags(class="#{genres_class}", data-view="chat/tags_viewer")
+          span.icon.ss-tag
+
+          .list
+            for genre in genres
+              a.tag(href="/explore?genres=#{genre}", title="#{genre}") #{genre}
+
+    .chat_content.no_chat_yet(data-view="chat/messages")
+      span(class='no-message') No one has typed a chat yet
+
+    .chat_footer
+      
+      .img_wrapper_2
+        img.author_chat_thumb(src="/images/profile-36.jpg")
+      textarea(placeholder="Type here to join the chat", data-view="chat/textarea")
+      span.icon.ss-heart
+      //- .for_unlogged_users
+      //-   p You need to log in to use the chat
+
+  .chat_sidebar(data-view="chat/people")
+    .inner
+      h3 
+        | People in this room 
+        span.number (0)
+
+      .users
+
+    if room
+      .share.for_guest
+        h3 Share this room
+        .social(
+          data-view="buttons/share", 
+          data-title="#{room.info.title}",
+          data-summary="#{room.info.about}",
+          data-permalink="/#{room.info.user}/#{room.info.slug}",
+          data-image="#{room.info.cover_url}",
+          data-type="2"
+        )
+          a.spritesheet.share_fb(href="#", title="Share on Facebook" onClick="_gaq.push(['_trackEvent', 'Listener Referral', 'Click', '']);") Share on Facebook
+          a.spritesheet.share_twitter(href="#", title="Share on Twitter" onClick="_gaq.push(['_trackEvent', 'Listener Referral', 'Click', '']);") Share on Twitter
+          a.spritesheet.share_google(href="#", title="Share with Google" onClick="_gaq.push(['_trackEvent', 'Listener Referral', 'Click', '']);") Share with Google
+
+  .chat_user_popup(data-view="chat/people_popup")
+    .outer_inner
+    a.follow_button(class="button yellow_button small_button_4 popup_follow_button", href="#",  data-view="profile/follow_button", data-user-id="#{id}") Follow
+

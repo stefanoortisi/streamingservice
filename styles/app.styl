@@ -1,0 +1,161 @@
+// --------------------------------------------
+// Imports
+
+@import '_shared/_bootstrap.styl'
+@import '_shared/_header_footer.styl'
+@import '_shared/_modal.styl'
+@import '_shared/_ui.styl'
+@import '_shared/_tags.styl'
+@import '_shared/_mobile.styl'
+
+// --------------------------------------------
+// Reset
+
+
+// Inheriting box-sizing Probably Slightly Better Best-Practice
+// http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+html
+	box-sizing: border-box
+
+*, *:before, *:after
+	box-sizing: inherit
+
+
+*
+	margin  0
+	padding 0
+	border  0
+
+a
+	color: inherit
+	text-decoration: none
+	outline: 0
+	
+.spritesheet
+	display: inline-block
+	text-indent: -9999px
+	
+.icon
+	display: inline-block
+	
+li
+	list-style: none
+	
+
+	
+// --------------------------------------------
+// Structure classes
+
+.centered
+	width: 100%
+	max-width: MAX_WIDTH
+	margin: 0 auto
+	
+.white_box
+	background: white
+	border-radius: 5px
+	margin-top: 35px
+	
+	box-shadow: 1px 2px 9px -2px rgba(0,0,0,0.36)
+
+.clear
+	clear: both
+	
+.hidden
+	visibility: hidden
+	opacity: 0
+	
+.visible
+	visibility: visible
+	opacity: 1
+	
+.fullscreen
+	position: relative
+	
+.scroll_handler
+	cursor: pointer
+	
+.cover
+	background-size: cover
+	background-position: 50% 50%
+	width: 100%
+	height: 100%
+	absolute top 0 left 0
+	z-index: 0
+	
+.center_el
+	absolute top 50% left 50%
+	transform: translateX(-50%) translateY(-50%)
+
+.left
+	float: left
+.right
+	float: right
+	
+.flex
+	display: flex
+	
+	.flex_sidebar
+		position: relative
+		
+	.flex_content
+		flex: 1
+// --------------------------------------------
+// Footer always pushed to the bottom
+html
+	position: relative
+	min-height: 100%
+
+// body
+// 	margin: 0 0 FOOTER_HEIGHT
+	
+// footer
+// 	absolute bottom 0 left 0
+// 	width: 100%
+// 	height: FOOTER_HEIGHT
+
+// --------------------------------------------
+// General Layout
+body
+	background: GRAY
+	color: BLACK
+	font-size: 100%
+	open_sans()
+	
+	// Pull the content down because of the header fixed
+	padding-top: HEADER_HEIGHT
+		
+#content
+	text-align: center
+	position: relative
+	z-index: 1
+	
+.player_visible
+	#content
+		padding-bottom: 70px
+	
+	
+.loading_screen
+	background: GRAY
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	z-index: 2
+	
+	.inner
+		text-align: center
+		display: flex
+		align-items: center
+		justify-content: center
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		.loading_spin
+			display: inline-block
+			
+	
+	

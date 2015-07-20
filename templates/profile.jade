@@ -1,0 +1,259 @@
+block seo
+  title #{user.info.name} | Live Sessions on Loopcast 
+
+  meta( property="og:title" content="#{user.info.name} | Live Sessions on Loopcast " ) 
+  meta( property="og:type"  content="profile" ) 
+
+  - og_image = "#{s.base_path}/images/thumbnail.png"
+
+  //- if user.info.avatar
+    - og_image = "#{s.base_path}#{user.info.avatar}"
+
+  meta( name="og:image"  content="#{og_image}" )
+  meta( name="url"       content="#{s.base_path}/#{user.info.username}" )
+
+
+  if about
+    meta( name="description" content="#{user.info.about}" ) 
+  else
+    meta( name="description" content="#{user.info.name} is on Loopcast. Follow #{user.info.name} and listen to live and recorded DJ mixes" )
+
+extends layout
+
+block content
+
+  - if( !genres ) genres = []
+
+  input#owner_id(type="hidden", value="#{user._id}")
+
+  .profile_theme.request_preloading.centered.no_information_yet(data-menu="profile", data-view="profile")
+    .cover
+      .cover_image.for_desktop(style="background-image:url(#{transform.cover(cover)})")
+      .cover_image.for_mobile(style="background-image:url(#{transform.cover_mobile(cover)})")
+        
+      .content
+        h1.name.black_background(data-view="components/editables/editable_text")
+          span.text #{user.info.name}
+        br
+
+        if occupation && occupation[0]
+          h3.type.black_background(data-view="components/editables/editable_select", data-text="#{user.info.occupation}", data-default-selected="false")
+            span.text Select Profession
+        else
+          h3.type.black_background(data-view="components/editables/editable_select", data-text="", data-default-selected="true")
+            span.text Select Profession
+          
+        
+        br
+        .genres.black_background(data-view="components/editables/editable_profile_tags")
+          span.text.empty Add your genres
+          span.text.values #{genres.join( ", " )}
+
+        .profile_image.upload_wrapper(data-view="components/image_uploader", data-id="profile_picture")
+          img(src="#{transform.avatar(user.info.avatar)}")
+          p.upload_element.edit_image
+            span.icon.ss-camera
+            span Update profile picture
+            span.progress
+
+            form(class="cloudinary_form")
+              input.api_key(type="hidden", name="api_key", value="#{cloudinary.api_key}")
+              input.cloud_name(type="hidden", name="cloud_name", value="#{cloudinary.cloud_name}")
+              input.unsigned_id(type="hidden", name="unsigned_id", value="#{cloudinary.unsigned_ids.profile}")
+
+
+
+        .sidebar_right
+          .big_number
+            .inner
+              span.icon.for_mobile.ss-users
+              span.number #{user.likes}
+              span.text.for_desktop Followers
+
+          .big_number
+            .inner
+              span.icon.for_mobile.ss-rss
+              span.number #{user.stats.streams}
+              span.text.for_desktop Streams 
+
+          .big_number
+            .inner
+              span.icon.spritesheet.for_mobile.mobile_headphones
+              span.number #{user.stats.listeners}
+              span.text.for_desktop
+                | Total
+                br 
+                | Listeners 
+
+        .change_cover.upload_wrapper(data-view="components/image_uploader", data-id="profile_cover")
+          a.upload_element.button_with_icon.black_button(href="#")
+            span.icon.ss-camera
+            span Change Cover
+            span.progress
+
+          form(class="cloudinary_form")
+            input.api_key(type="hidden", name="api_key", value="#{cloudinary.api_key}")
+            input.cloud_name(type="hidden", name="cloud_name", value="#{cloudinary.cloud_name}")
+            input.unsigned_id(type="hidden", name="unsigned_id", value="#{cloudinary.unsigned_ids.cover}")
+
+        .for_guest.cover_buttons
+          a(href="#", class="button grey_button small_button_2 follow_button", data-view="profile/follow_button", data-user-id="#{user._id}") 
+            span.follow Follow
+            span.unfollow Unfollow
+
+    .profile_content
+      .profile_left
+        .profile_bio.outline_box
+          .profile_bio_without_information.element_on_read_mode
+            .for_owner
+              .text
+                p 1. Add your location
+                p 2. Add your bio
+                p 3. Add your social links
+
+              a.rounded_border.big.add_information(href="#", data-profile="set-write-mode")
+                span.icon.ss-write
+                | Add
+
+            .for_guest.text
+              p User has not updated their info yet
+
+
+          .element_on_read_mode.profile_bio_with_information
+            a.outline_icon(href="#", title="Edit Profile", data-profile="set-write-mode")
+              //- span.spritesheet.edit_icon
+              span.icon.ss-write
+
+            h4.location #{user.info.location}
+            .bio !{user.info.about}
+
+            .social.social_read_mode
+
+          form.element_on_write_mode.profile_form
+            input.squared_input.location_input(type="text", placeholder="Add your location", name="location", value="#{user.info.location}")
+            textarea.squared_input.bio_input(placeholder="Add a bio to your profile", name="bio")
+            .social_links(data-view="components/editables/social_links", data-links="#{user.info.social}")
+            button.button.save_button.no_shadow(data-profile="set-read-mode") Save
+
+
+
+
+
+      - klass = "no_sessions"
+      if live || (recorded && recorded.length)
+        - klass = ""
+      .list_sessions(class="#{klass}", data-view="profile/sets")
+
+        if live
+          .session.outline_box(data-view="profile/live_set", data-room-id="#{live._id}", data-room-started-at="#{live.status.live.started_at}")
+            a.image.room_url(href="/#{live.info.user}/#{live.info.slug}", title="Old School House session", style="background-image:url(#{transform.cover_thumb(live.info.cover_url, user.info.avatar)})")
+            .content
+              h2.session_title 
+                a.room_url(href="/#{live.info.user}/#{live.info.slug}", title="#{live.info.title}") #{live.info.title}
+              p.session_author #{user.info.name}
+
+              .genres
+                for genre in live.info.genres
+                  a.tag(href="/explore?genres=#{genre}", title="#{genre}") #{genre}
+
+              .small_info
+                a.location(href="/explore?search=#{live.info.location}")
+                  span.icon.ss-location
+                  //- span.spritesheet.icon_location
+                  span.text #{live.info.location}
+                .likes 
+                  span.icon.ss-heart
+                  //- span.spritesheet.icon_guests
+                  span.text #{live.likes}
+                .guests 
+                  span.icon.ss-users
+                  //- span.spritesheet.icon_plays
+                  span.text #{live.status.live.listeners}
+
+              a.live(href="#", title="#{live.info.title}")
+                p.label 
+                  span.for_desktop now live
+                p.time &nbsp;
+
+        if recorded && recorded.length
+          .recorded_sessions
+            .title
+              h2 Recorded sessions
+              .icon.ss-record-wrapper
+                span.ss-record
+              span.session_text #{recorded.length}
+
+              //- - span.icon.ss-alert.for_owner
+              //- - span.alert_text.for_owner #{free_storage} free storage remaining
+
+            for room in recorded
+              - room.url = "/" + room.info.user + "/" + room.info.slug 
+              - public_class = ""
+              if !room.status.is_public && room.status.recording.stopped_at
+                - public_class = "to_publish"
+              //- - room.info.cover_url = room.info.cover_url || '/images/default_room_cover.jpg'
+              .session.outline_box(class="#{public_class}", id="session_recorded_#{room._id}", data-room-id="#{room._id}" data-view="[components/user_set,components/audio/player_preview]")
+                .image(style="background-image:url(#{transform.cover_thumb(room.info.cover_url, user.info.avatar)})")
+                  a.icon.ss-play.circle_icon(href="#",title="Play") 
+                  .loading_spin
+                  .share_wrapper(
+                    data-view="buttons/share", 
+                    data-permalink="#{room.url}",
+                    data-title="#{room.info.title}",
+                    data-summary="#{room.info.about}",
+                    data-image="#{room.info.cover_url}"
+                  )
+                    a.yellow.ss-action(href="#", title="Share")
+
+
+                .content
+                  h2.session_title 
+                    a.room_url(href="#{room.url}", title="#{room.info.title}") #{room.info.title}
+                  p.session_author #{user.info.name}
+                  .genres
+                    for genre in room.info.genres
+                      a.tag(href="/explore?genres=#{genre}", title="#{genre}") #{genre}
+                    
+                  .small_info
+                    a.location(href="/explore?search=#{room.info.location}")
+                      span.icon.ss-location
+                      span.text #{room.info.location}
+                    .likes 
+                      span.icon.ss-heart
+                      span.text #{room.likes}
+                    .guests 
+                      span.icon.ss-play
+                      span.text #{room.status.recording.plays}
+
+                  .edit_session_wrapper
+                    a.icon.settings_button.ss-settings(href="#", title="Setting Session", data-view="components/click_trigger" data-target="#session_recorded_#{room._id} .edit_session_popup")
+                    .edit_session_popup
+                      .triangle
+                      if room.info.file
+                        a.download_button.button.yellow_button.small_button_4(href="#{room.info.file}", target="_blank", title="Download" download="#{room.info.file}") Download
+                      a.edit_button.button.yellow_button.small_button_4(href="#", title="Edit") Edit
+                      a.delete_button.button.red_button.small_button_4(href="#", title="Delete") Delete
+
+                  .public_screen
+                    .bg
+                    a.button.yellow_button.no_shadow.small_button_2.set_public(title="Make set public") Make set public
+
+
+                .delete_screen
+                  .content
+                    h2 Are you sure you want to delete this recording?
+                    a.button.red_button.small_button_4.confirm_delete(href="#", title="Delete") Delete
+                    a.button.white_button.small_button_4.cancel_delete(href="#", title="Cancel") Cancel
+
+      
+        .no_activity_wrapper
+          h3.no_activity.for_guest #{user.info.name} does not have any live or recorded sessions
+          h3.no_activity.for_owner You don't have any live or recorded sessions
+          a.button.bold_button.yellow_button.small_button_2.for_owner(href="/rooms/create") Get Started
+
+  include ./modals/room_modal.jade
+
+  script
+    //- THIS IS JUST FOR DEBUGGIN. TO BE REMOVED
+    | var profile_info = !{JSON.stringify(locals)};;
+    | console.log( 'profile_info', profile_info ); 

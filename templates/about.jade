@@ -1,0 +1,25 @@
+block seo
+  title Loopcast | About
+  meta( name="description" content="" ) 
+
+extends layout
+
+block content
+  .centered.about_page
+    .white_box
+      h1.about_title #{title}
+
+      .about_content
+        p.about_description #{description}
+
+        for col in columns
+          .about_column
+            img(width="200", src="/images/#{col.icon}")
+
+            h4 #{col.title}
+            p #{col.text}
+
+        .clear
+
+        h2.about_title Sound good?
+        a.button.save_button.normal_button_2(href="/rooms/create" title="Go live now", data-view="components/logged_link" onClick="_gaq.push(['_trackEvent', 'StartStreaming', 'Click', '']);") Go live now

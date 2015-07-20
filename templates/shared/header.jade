@@ -1,0 +1,65 @@
+header.header.for_desktop(data-view="header")
+  .background
+  .centered
+    .left
+      a.homepage_item.menu_item(href="/" class="menu_logo" title="Loopcast Logo")
+        span.spritesheet(class="sprite_small_logo") Loopcast Logo
+      a.explore_item.menu_item.header_shadow_item(href="/explore" title="Explore" onClick="_gaq.push(['_trackEvent', 'Explore', 'Click', '']);") Explore
+      a.create_room_item.menu_item.header_shadow_item(href="/rooms/create" title="Create Room", data-view="components/logged_link" onClick="_gaq.push(['_trackEvent', 'Start Streaming', 'Click', '']);") Start Streaming
+      .search_box.no_border
+
+        span.icon.ss-icon &#x1F50E;
+        form
+          input.dark_input(type="text" name="search" placeholder="Search...", data-view="components/search_input")
+
+
+    .right
+      //- a(href="#" title="Sign Up") Sign Up
+      .user_logged
+
+      a.login_link(
+        title="Log In", 
+        data-view="components/login_popup_handler",
+        href="#"
+      ) Log In
+      div.settings.hover_dropdown_trigger(title="Settings" data-view="[components/click_trigger,components/settings]" data-target=".settings_dropdown")
+        span.icon.ss-settings
+        //- span.spritesheet.header_settings
+
+        ul.settings_dropdown.hover_dropdown
+          li
+            a(href="/about" title="About Loopcast") About Loopcast
+          li
+            a(href="https://loopcast.desk.com/" target="_blank" title="Help") Help
+          li
+            a(href="http://blog.loopcast.fm/" target="_blank" title="Blog") Blog
+          li
+            a(href="https://loopcast.desk.com/customer/portal/articles/1461785-why-advertise-on-loopcast" target="_blank" title="Advertising") Advertising
+          li
+            a(href="/privacy" title="Privacy") Privacy
+          li
+            a(href="/terms" title="Terms of use") Terms of use
+    
+
+.for_mobile.mobile_header
+  a.icon.ss-music.mobile_explore_item(href="/explore", title="Explore") &nbsp;
+  a.icon.ss-users.mobile_people_item(href="/explore/people") &nbsp;
+  a(href="/", title="Homepage")
+    span.spritesheet.mobile_white_logo
+  a.icon.ss-search(href="#", data-view="components/mobile/dropdown_trigger", data-dropdown=".search_menu") &nbsp;
+  a.icon.ss-ellipsis(href="#", data-view="components/mobile/dropdown_trigger", data-dropdown=".more_menu") &nbsp;
+
+.for_mobile.more_menu.mobile_dropdown(data-view="components/mobile/more_menu")
+  .for_unlogged_users
+    a(href="#", title="Login", data-view="components/login_popup_handler") Login
+  .for_logged_users
+    a.profile_link(href="#" title="") My Profile
+    a(href="#" title="About") About
+    a(href="#" title="Feedback") Feedback
+    a(href="#" title="Logout", data-view="components/logout_link") Logout
+
+.for_mobile.search_menu.mobile_dropdown(data-view="components/mobile/more_menu")
+  .mobile_search_wrapper
+    input(type="text", class="link_input", placeholder="Search...", data-view="components/mobile/search_input")
+
+.background_mobile_dropdown.for_mobile

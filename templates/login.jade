@@ -1,0 +1,74 @@
+doctype html
+html
+  head
+    meta( charset='utf-8' )
+    meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+    meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+    meta( property="og:image" content="#{s.base_path}/images/thumbnail.png")
+    link( rel="icon", href="/favicon.ico" )
+
+    title loopcast.fm
+    meta( name="description" content="Loopcast Description" ) 
+
+  
+    link( href='//fonts.googleapis.com/css?family=Open+Sans:300,400,700,600', rel='stylesheet', type='text/css' )
+    link( href='/css/spritesheet.css', rel='stylesheet', type='text/css' )
+    link( href='/css/webfonts/ss-standard.css', rel='stylesheet', type='text/css' )
+    link( href='/css/app.css', rel='stylesheet', type='text/css' )
+
+    style.
+      #loading {display:block;position:absolute;top:0;left:0;background:#ececec;width:100%;height:100%;}
+      header{opacity:0;}
+
+
+  body.loading.not_logged
+
+    #content
+      .inner_content
+        #login.popup(data-menu="login")
+          .md_wrapper(data-view="login")
+            .md_header
+              .md_login
+                h1 
+                  span.spritesheet(class="md_logo sprite_small_logo")
+                  | Join Loopcast in seconds
+
+              .triangle
+              
+            .md_content.md_login
+
+              p
+                span.icon.ss-music
+                | Go live in your browser for free
+
+              p
+                span.icon.ss-users
+                | Interact with your audience
+
+              p
+                span.icon.ss-record
+                | Record, save and share instantly
+              
+              .buttons
+                a.button.social.facebook.shadow(href="/login/facebook" onClick="_gaq.push(['_trackEvent', 'Customer Login', 'Click', 'Facebook']);" title="Sign in with Facebook") 
+                  span.spritesheet.facebook_button_icon
+                  span Sign in with Facebook
+                a.button.social.google.shadow(href="/login/google" onClick="_gaq.push(['_trackEvent', 'Customer Login', 'Click', 'Google']);" title="Sign in with Google") 
+                  span.spritesheet.google_button_icon
+                  span Sign in with Google
+
+                .clear
+
+    #loading
+      .inner
+        .loading_spin.large(style="position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px;")
+
+
+    script( src="https://code.jquery.com/jquery-2.1.1.min.js" )
+    script( src="/js/app.js" )
+    script( src="/js/tag_manager.js" )
+    script( src="/js/google_analytics.js")
+    script
+      //- | var options   = { authEndpoint: '/api/v1/chat/auth' };
+      //- | options  = {} // while we don't implement presence channels
+      //- | window.pusher = new Pusher( '#{pusher.key}', options );

@@ -1,0 +1,49 @@
+block seo
+    title Explore Trending Users on Loopcast | Loopcast
+    meta( name="description" content=" " ) 
+
+extends ./_explore
+
+block submenu
+  span(data-submenu="sub_header_people", data-menu-mobile="mobile_people", data-view="components/refresh")
+
+block grid
+
+  for item in users
+
+    - klasses = "item-all-genres"
+    for g in item.info.genres
+      - klasses += " item-" + slugify(g)
+
+    if item.following
+      - klasses += " following"
+
+    .room_cell.item(class="#{klasses}")
+      a(href="/#{item.info.username}", title="#{item.info.name}", class="thumb_wrapper") 
+        img.room_thumb.for_desktop(src="#{transform.explore_thumb(item.info.avatar)}")
+        img.room_thumb.for_mobile(src="#{transform.explore_thumb_mobile(item.info.avatar)}")
+
+      .room_content
+        .text
+          h2.room_title 
+            a(href="/#{item.info.username}", title="#{item.info.name}") #{item.info.name}
+          p.room_subtitle #{item.info.occupation}
+          .genres.small
+            for g in item.info.genres
+              a.tag(href="?genres=#{g}", title="#{g}", data-genre-id="#{g}") #{g}
+
+          - console.log( "---", item.info.location );
+          if item.info.location && item.info.location.length > 1
+            p.room_location
+              //- span.spritesheet.icon_location
+              a(href="/explore?search=#{item.info.location}") 
+                span.icon.ss-location
+                | #{item.info.location}
+
+        a.enter_room(href="#", class="button yellow_button no_shadow small_button small_button_2", title="Follow", data-view="profile/follow_button", data-user-id="#{item._id}") Follow
+
+
+  script
+    //- THIS IS JUST FOR DEBUGGIN. TO BE REMOVED
+    | var data = !{JSON.stringify(locals)};;
+    | console.log( 'people data', data ); 

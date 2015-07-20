@@ -1,0 +1,711 @@
+mobile_list_item()
+  display: block
+  margin-bottom: 0
+  border-radius: 0
+  color: #484739
+  background: #eaeaea
+  padding: 10px 18px
+  font-size: 15px
+  border-bottom: 1px solid darken( #d3d3d3, 10 )
+  &.selected
+    background: #d3d3d3
+    color: #484739
+  &:hover
+    background: #d3d3d3
+    color: #484739
+
+.fullscreen_elements
+  display: none
+  
+
+
+.mobile_headphones
+  margin-top: 10px
+  &.room
+    margin-top: 30px
+  
+.open_fullscreen
+  position: absolute
+  top: 10px
+  right: 10px
+    
+body a.close_fullscreen
+  display: none
+  
+body
+  min-width: 320px
+  
+.for_mobile
+  display: none
+  
+.homepage_mobile_screen
+  padding: 60px 40px 80px
+  width: 100%
+  position: relative
+  background-size: cover
+  background-position: center center
+  
+.room_play_handler
+  position: absolute
+  width: 60px
+  height: 60px
+  top: 50%
+  left: 50%
+  transform translateX(-50%) translateY(-50%)
+  z-index: 2
+  &.player_preview 
+    .circle_icon
+      opacity: 1
+
+.mobile_header
+  height: 55px
+  background: HEADER  
+  width: 100%
+  top: 0
+  left: 0
+  font-size: 22px
+  border-bottom: 2px solid YELLOW
+  color: #818181
+  position: fixed
+  z-index: 4
+  align-items: center
+  justify-content: center
+  transition: transform .1s ease-out
+  
+  &.hide
+    transform: translate3d(0, -55px, 0)
+  a
+    flex: 1
+    text-align: center
+    transition: color .2s linear
+    position: relative
+    top: 3px
+    span
+      position: relative
+      top: -1px
+    &.selected, &.mobile_opened
+      color: YELLOW
+      
+  .ss-users
+    position: relative
+    margin-left: -5px
+    margin-right: 5px
+    
+  .ss-search
+    position: relative
+    margin-left: 10px
+    margin-right: -10px
+      
+.dynamic_wrapper
+  position: relative
+  
+.mobile_dropdown
+  transform: translate3d(0,-100%,0)
+  transition: transform .3s ease-out
+
+.mobile_dropdown_opened    
+  .background_mobile_dropdown
+    z-index: 2
+    
+.mobile_dropdown_opened_2
+  .background_mobile_dropdown
+    opacity: 0  
+
+
+.background_mobile_dropdown
+  fixed top 0 left 0
+  width: 100%
+  height: 100%
+  background: #eaeaea
+  z-index: 0
+  opacity: 0
+  transition: opacity .2s linear
+
+.profile_theme .big_number span.icon
+  display: none
+  
+
+@media (max-width: 700px)
+
+  
+
+  .player_buttons
+    display: none
+
+  body .no_sessions 
+    .no_activity_wrapper
+    .recorded_sessions
+      display: none
+    
+  body.player_visible #content
+    padding-bottom: 55px
+    
+  .profile_theme .big_number span.icon
+    display: block
+    
+  body .profile_theme .profile_content .session .live .label
+    padding-left: 4px
+    padding-right: 18px
+  body
+    padding-top: 0!important
+    
+    .profile_theme .cover .content
+      padding-right: 68px
+    
+    &.is_owner .room_ready .dashboard_bar .inner
+      display: none
+    &.is_owner .room_ready .dashboard_bar
+      height: 8px
+      
+    &
+      .background_mobile_dropdown
+        opacity: 0
+    .mobile_dropdown.mobile_opened
+      transform: translate3d(0,0,0)
+      top: 55px
+      
+
+
+    .tag
+      font-size: 0.5rem
+    &.login_page
+      .for_mobile
+        display: none
+    .dynamic_wrapper
+      padding-top: 55px
+      background: #ececec
+      transition: transform .3s ease-out
+      transform: translate3d(0, 0, 0)
+      &.moving
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        
+        transform: translate3d(-100%, 0, 0)
+      &.moved
+        transform: translate3d(0, 0, 0)
+
+    #loading
+      position: fixed
+      z-index: 1
+      opacity: .5
+
+    .for_mobile
+      display: block
+      
+    .for_desktop
+      display: none
+      
+
+      
+    .parallax-mirror
+      display: none
+      
+    .mobile_header
+      display: flex
+
+   
+      
+    .black_box
+      position: relative
+      margin: 0px auto
+      width: 100%
+      min-width: inherit
+      max-width: 300px
+      h1
+        line-height: 23px
+        font-size: 1.5rem
+        margin-bottom: 20px
+      p
+        font-size: 1rem
+        line-height: 25px
+        
+      .button
+        width: 100%!important
+        
+        
+      
+    .buttons .right
+      float: none
+      
+    .secondary_screen .black_box
+      right: auto
+      top: auto
+      h1
+        line-height: 23px
+        
+      p
+        padding: 0
+        font-weight: inherit
+        line-height: inherit
+        
+    .explore
+      padding-top: 0
+      
+      .explore_content
+        display: block
+        padding: 56px 0 0
+      
+      
+    .explore 
+      .genres_list
+        opacity: 0
+        display: block
+        position: absolute
+        top: 56px
+        left: 0
+        z-index: 2
+        width: 100%
+        transition: transform .3s ease-out, opacity .1s linear 1s
+        transform: translate3d(0,-100%,0)
+        &.mobile_opened
+          transform: translate3d(0,0%,0)
+          opacity: 1
+          transition: transform .3s ease-out, opacity .1s linear
+        a
+          mobile_list_item()
+      
+      .rooms_grid
+        display: block
+        padding: 10px
+        
+        &.loading_visible_1
+          .loading
+            z-index: 1
+            
+        &.loading_visible_2
+          .loading
+            // opacity: 1
+        
+        .room_cell
+          width: 100%
+          max-width: 480px
+          margin: 0 auto 10px
+          position: relative!important
+          top: 0!important
+          left: 0!important
+          
+          & > .thumb_wrapper
+            width: 100%
+            height: auto
+            img.for_desktop
+              display: none
+            img.for_mobile
+              display: block
+      
+    .filter_list
+      background: #eaeaea
+      border-bottom: 1px solid darken( #d3d3d3, 10 )
+      text-align: center
+      z-index: 3
+      position: absolute
+      top: 0px
+      left: 0
+      width: 100%
+      text-transform: uppercase
+      padding: 18px 10px
+      font-size: 14px
+      cursor: pointer
+      span
+        font-size: 8px
+        border: 1px solid BLACK
+        display: inline-block
+        border-radius: 3px
+        padding: 3px 4px 0px
+        margin-left: 10px
+        position: relative
+        top: 0px
+      .ss-directup
+        display: none
+      &.mobile_opened
+        .ss-dropdown
+          display: none
+        .ss-directup
+          display: inline-block
+    #player
+      height: 55px
+      transition: height .2s ease-out
+      .player_icon
+        height: 55px
+        width: 55px
+      
+      &.fullscreen
+        height: 100%
+        
+      .player_title
+        font-size: 0.8em
+      .player_button
+        font-size: 1.3rem
+        padding: 0 18px
+        margin: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        left: 0
+        top: 0
+        height: 100%
+        .icon
+          position: relative
+          top: 5px
+        .loading_spin
+          position: relative
+          left: -5px
+          
+      .player_text
+        margin-left: 10px
+        margin-right: 10px
+        
+      .player_progress
+        display: none
+      .player_buttons
+        margin-left: 5px
+      .player_buttons > *
+        margin: 0 4px  
+        position: relative
+        top: 2px
+      .player_buttons  
+      .player_right
+        flex: 1
+        text-align: center
+        
+      .player_right
+        margin: 0
+      .player_time
+        text-align: center
+        
+    .mobile_dropdown
+      position: fixed
+      top: 0px
+      left: 0
+      width: 100%
+      z-index: 3
+      & > div
+        z-index: 0
+        position: relative
+      a
+        mobile_list_item()
+    .outline_box
+      border-radius: 0px
+      border-left: 0
+      border-right: 0
+    .profile_theme 
+      
+      MARGIN_LEFT = 10px
+
+      .cover_buttons
+        bottom: 10px
+        right: 67px
+      .cover 
+        height: 184px
+        .name, .type, .genres, .socials_room
+          margin-left: MARGIN_LEFT
+        .upload_element
+          display: none
+        .cloudinary_form
+          display: none
+        .name
+          font-size: 1.1rem
+          padding: 4px 10px 5px
+        .type
+          font-size: 0.8rem
+        .socials_room
+          display: none!important
+        .genres
+          font-size: 0.8rem
+          line-height: 1rem
+        
+          
+        .profile_image
+          width: 87px
+          left: MARGIN_LEFT
+      .big_number
+        padding: 0 20px
+        background: rgba(41, 44, 47, 0.8)    
+        border-bottom: none
+        border-top: none
+      .big_number span.text
+        display: none
+      .big_number span.number
+        font-size: 1rem
+        
+      .profile_content
+        display: block
+        padding: 10px 0
+
+        .profile_bio 
+          padding-left: MARGIN_LEFT
+          padding-right: MARGIN_LEFT
+          h4
+            margin-bottom: 0
+          .outline_icon
+            display: none!important
+        .profile_left
+          width: 100%
+        .social
+          position: relative
+          left: 0px
+          margin-top: 10px
+          height: 40px
+          a
+            margin-right: 10px
+        .spritesheet
+          transform: scale(0.5,0.5)
+          
+        .session
+          border: none
+          border-bottom: 1px solid #dadada
+          border-radius: 0
+          height: auto
+          margin-bottom: 0
+          overflow: hidden
+          
+          .image
+            width: 84px
+            height: 74px
+            border-radius: 3px
+            margin: MARGIN_LEFT
+            .icon
+              opacity: 1
+              transform translateX(-50%) translateY(-50%) scale(0.6,0.6)
+              
+            .share_wrapper
+              display: none
+
+
+          .content
+            padding-top: MARGIN_LEFT
+            padding-right: MARGIN_LEFT
+            padding-bottom: MARGIN_LEFT
+            padding-left: 0
+            
+          h2
+            font-size: 0.9rem
+            margin-bottom: 0
+          .session_author
+            font-size: 0.8rem
+            margin-bottom: 2px
+          .edit_session_wrapper
+            display: none!important
+            
+          .genres
+            margin-bottom: 0
+            a
+              display: none
+              &:nth-child(1)
+              &:nth-child(2)
+                display: inline-block
+            
+          .small_info
+            position: relative
+            top: -3px
+            line-height: 16px
+            
+          .public_screen
+            display: none!important
+        
+      .big_number span.icon
+        padding-top: 14px
+      
+      .location
+        color: GRAY_3
+        
+      .recorded_sessions .title 
+        margin-top: 10px
+        background: white
+        border-top: 1px solid #dadada
+        border-bottom: 1px solid #dadada
+        
+        margin-bottom: 0
+        padding: MARGIN_LEFT
+        *
+          display: none
+        h2
+          display: block
+          color: GRAY_3
+          font-size: 1rem
+          
+    
+    .chat_sidebar
+      display: none!important
+    
+    .profile_content.chat
+      position: relative
+      flex-direction: column
+      .chat_header
+        display: none
+      .chat_main
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        
+        .chat_content
+          padding: 10px
+          overflow-scrolling: touch
+          
+      .img_wrapper_2
+        left: 10px
+      
+      .chat_footer
+        padding-left: 40px
+        .icon
+          right: 17px
+          top: 22px
+    .player_preview 
+      .circle_icon
+        opacity: 1
+      .share_wrapper
+        display: none
+  .socials_room
+    position: relative
+    left: 0px
+    
+  .mobile_search_wrapper
+    padding: 10px 80px
+    border-bottom: 1px solid #CACACA
+    background: #eaeaea
+    input
+      margin-bottom: 0
+      border: 1px solid #CACACA
+      border-radius: 10px
+      padding-left: 20px
+      padding-right: 20px
+      text-decoration: none
+    
+  
+
+  body #player.fullscreen
+    height: 100%
+    z-index: 4
+    
+    .fullscreen_elements
+      display: block
+      width: 100%
+      text-align: center
+      padding-bottom: 60px
+      // .player_time
+      // .player_total_time
+      // .player_progress
+      //   display: inline-block
+        
+    a.close_fullscreen
+      display: block
+      margin-bottom: 10px
+      text-align: right
+      width: 100%
+      position: absolute
+      right: 20px
+      z-index: 1
+      color: white
+      text-shadow: 1px 1px 1px black
+      top: 21px
+        
+    .progress_wrapper
+      display: flex
+      .player_progress
+        flex: 1
+        display: block
+        margin: 7px 11px 0
+        
+      .player_total_time
+        font-size: 0.9em
+        font-weight: 600
+        
+      
+    .player_text
+      text-align: center
+      margin-bottom: 10px
+      
+    .player_buttons
+      display: block
+      position: absolute
+      bottom: 82px
+      width: 100%
+      height: 36px
+      margin: 0
+      flex: initial
+      left: 0
+      
+      MARGIN = 90px
+      .share_wrapper
+        position: absolute
+        left: 50%
+        margin: 0
+        margin-left: -(MARGIN)
+        top: 0
+      .ss-heart
+        position: absolute
+        right: 50%
+        top: 0
+        margin: 0
+        margin-right: -(MARGIN)
+        
+      .ss-heart
+      .share_wrapper
+        font-size: 1.5rem
+        
+    .player_title
+      font-size: 1rem
+      font-weight: bold
+      
+    .player_author
+      font-size: .9rem
+      
+    .no_fullscreen
+      display: none!important
+      
+    .centered
+      min-height: 100vh
+      flex-direction: column
+      padding: 10px
+      
+    .player_icon
+      width: 100%
+      height: auto
+      flex: 1
+      margin-bottom: 3px
+      
+    .player_button
+      display: inline-block
+      flex: initial
+      position: relative
+      height: auto
+      margin-top: 0px
+      margin-bottom: 10px
+      font-size: 1.7rem
+      height: 56px
+      
+      .icon
+        border: 1px solid white
+        border-radius: 50%
+        width: 52px
+        height: 52px
+        text-align: center
+        padding-top: 10px
+        padding-left: 8px
+        
+        &.ss-pause
+          // padding-top: 9px
+          padding-left: 1px
+          
+    .loading_spin
+      top: 10px
+          
+  body 
+    .profile_content.chat .chat_main .chat_content
+      height: 100%
+    .profile_content.chat
+      min-height: initial
+      flex: 1
+    .createroom
+      display: flex
+      min-height: 100vh
+      flex-direction: column
+      padding-top: 55px
+      
+    &.room_page .dynamic_wrapper
+      padding-top: 0
+      
